@@ -1,22 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useDarkMode, changeTheme } from './theme';
+
+
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [darkMode, setDarkMode] = useDarkMode();
+  let set = () => setDarkMode((darkMode) => changeTheme(darkMode));
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setCount(count+10);
+    },2000)
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="App transition duration-700 bg-white text-black dark:text-white dark:bg-[#282c34] ">
+      <header className="App-header trans">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className='text-black dark:text-white'>{count}</div>
+        <p className='text-black dark:text-white' onClick={() => { setCount(i => i + 1) }}>Increment</p>
+        <p className='text-black dark:text-white' onClick={set}>changeTheme</p>
       </header>
     </div>
   );
